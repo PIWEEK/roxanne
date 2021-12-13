@@ -1,5 +1,5 @@
 #roxanne_en_bot
-config
+config/config.ts
 dist
 package-lock.json
 
