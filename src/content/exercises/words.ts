@@ -2,6 +2,7 @@ import * as TelegramBot from "node-telegram-bot-api";
 import { getRandomWord } from "../../utils/utils";
 import { Word } from "../../model/words.model";
 import { sendMenu } from "../menu";
+import { botReplies } from "../conversation";
 
 const checkResponse = (
   bot: TelegramBot,
@@ -17,29 +18,30 @@ const checkResponse = (
       if (reply.text === word.word) {
         bot.sendMessage(
           chatId,
-          `🎉 Right! <strong>${word.word}</strong> is the correct answer 👏👏👏`,
+          botReplies.words.success,
           { parse_mode: "HTML" }
-        );
+        ).then(() => sendMenu(bot, chatId, botReplies.whichExercise));
       } else {
         bot.sendMessage(
           chatId,
-          `🤭 You probably weren't the smartest person in your class, were you? The right answer is <strong>${word.word}</strong>`,
+          `${botReplies.errors.smart} <strong>${word.word}</strong>`,
           { parse_mode: "HTML" }
-        );
+        ).then(() => sendMenu(bot, chatId, botReplies.whichExercise));
       }
-      sendMenu(bot, chatId, "Which exercise would you like to do now?");
+
     }
   )
 };
 
 const wordsExercise = (
   bot: TelegramBot,
-  result: TelegramBot.CallbackQuery
+  result: TelegramBot.CallbackQuery,
+  previousWord?: Word
 ) => {
-  const word: Word = getRandomWord();
+  const word: Word = previousWord || getRandomWord();
   bot.sendMessage(
     result.message.chat.id,
-    `🤔 <strong>Question!!</strong> Which word means <em>${word.meaning}</em> ?`,
+    `${botReplies.words.meaning} <em>${word.meaning}</em> ?`,
     { parse_mode: "HTML" }
   )
   .then((result: TelegramBot.Message) => {

@@ -1,18 +1,17 @@
 import * as TelegramBot from "node-telegram-bot-api";
-import { languagetoolParams } from "../../model/languagetool.model";
-import { Word } from "../../model/words.model";
-import { getRandomWord } from "../../utils/utils";
-import { sendMenu } from "../menu";
 import * as languagetool from "languagetool-api";
 
-let params: languagetoolParams = {
-  language: "en-GB",
-  text: "",
-  motherTongue: "es",
-  level: "default",
-};
+import { languagetoolParams } from "../../../config/config";
+
+import { LanguagetoolParams } from "../../model/languagetool.model";
+import { Word } from "../../model/words.model";
+
+import { getRandomWord } from "../../utils/utils";
+import { sendMenu } from "../menu";
+import { botReplies } from "../conversation";
 
 const wordLength = 5;
+let langParams: LanguagetoolParams = languagetoolParams;
 
 const writeSentence = (bot: TelegramBot, message: TelegramBot.Message, word: Word) => {
   bot.sendMessage(
@@ -26,8 +25,8 @@ const writeSentence = (bot: TelegramBot, message: TelegramBot.Message, word: Wor
 }
 
 const languageCheck = (bot:TelegramBot, chatId: number, message: string) => {
-  params.text = message;
-  languagetool.check(params, async (err, res) => {
+  langParams.text = message;
+  languagetool.check(langParams, async (err, res) => {
     if (err) {
       console.log(err);
     } else {
@@ -43,13 +42,13 @@ const languageCheck = (bot:TelegramBot, chatId: number, message: string) => {
             );
           })
         }
-        sendMenu(bot, chatId, "Which exercise would you like to do now?");
+        sendMenu(bot, chatId, botReplies.whichExercise);
       } else {
         bot.sendMessage(
           chatId,
-          "This sentence looks good!"
+          botReplies.sentences.success
         ).then(() => {
-          sendMenu(bot, chatId, "Which exercise would you like to do now?");
+          sendMenu(bot, chatId, botReplies.whichExercise);
         })
       }
     }
@@ -68,13 +67,13 @@ const checkResponse = (
       if (reply.text.split(" ").length < wordLength) {
         bot.sendMessage(
           reply.chat.id,
-          `⚠️ That sentence is too short. Try again`
+          botReplies.sentences.error.short
         );
         writeSentence(bot, reply, word);
       } else  if (!reply.text.includes(word.word)) {
         bot.sendMessage(
           reply.chat.id,
-          `⚠️ That sentence does not contain the word: <strong>${word.word}</strong>. Try again!`,
+          `${botReplies.sentences.error.contains} <strong>${word.word}</strong>. ${botReplies.tryAgain}`,
           { parse_mode: "HTML" }
         );
         writeSentence(bot, reply, word);
@@ -82,12 +81,10 @@ const checkResponse = (
         const chatId = reply.chat.id;
         bot.sendMessage(
           chatId,
-          `🧐 Aha! Give me a second to analyze this sentence...`
+          botReplies.sentences.analysis
         ).then(() => {
           languageCheck(bot, chatId, reply.text)
-
         })
-
       }
     }
   )

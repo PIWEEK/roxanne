@@ -14,11 +14,11 @@ const learnMenu = {
     ],
     [
       {
-        text: "I want to write sentences",
+        text: "Write sentences",
         callback_data: "sentences",
       },
       {
-        text: "I want to pronounce something",
+        text: "Improve pronounciation",
         callback_data: "pronounce",
       },
     ]

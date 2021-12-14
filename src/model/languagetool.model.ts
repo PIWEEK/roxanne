@@ -1,4 +1,4 @@
-export interface languagetoolParams {
+export interface LanguagetoolParams {
   text: string;
   data?: string;
   language: string;
