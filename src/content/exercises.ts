@@ -1,8 +1,7 @@
-import TelegramBot from "node-telegram-bot-api";
-import { CallbackQuery } from "telegram-typings";
+import { CallbackQuery, Message } from "telegram-typings";
 
 const wordsExercise = (
-  bot: TelegramBot,
+  bot,
   result: CallbackQuery
 ) => {
   bot
@@ -10,19 +9,19 @@ const wordsExercise = (
       result.message.chat.id,
       "Excuse me? Say you're sorry"
     )
-    .then((result) => {
+    .then((result: Message) => {
       console.log("result", result);
-    });
-  bot.onReplyToMessage(
-    result.message.chat.id,
-    result.message.message_id,
-    (reply) => {
-      bot.sendMessage(
-        result.message.chat.id,
-        "Good."
+      bot.onReplyToMessage(
+        result.chat.id,
+        result.message_id,
+        (reply: Message) => {
+          bot.sendMessage(
+            reply.chat.id,
+            "Good."
+          );
+        }
       );
-    }
-  );
+    });
 };
 
 export { wordsExercise };
