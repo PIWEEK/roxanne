@@ -25,9 +25,9 @@ const learnMenu = {
   ],
 }
 
-const sendMenu = (bot: TelegramBot, msg: TelegramBot.Message, text: string) => {
+const sendMenu = (bot: TelegramBot, chatId: number, text: string) => {
   bot.sendMessage(
-    msg.chat.id,
+    chatId,
     text,
     {
       reply_markup: learnMenu,

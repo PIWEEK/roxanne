@@ -12,20 +12,22 @@ const checkResponse = (
     result.chat.id,
     result.message_id,
     (reply: TelegramBot.Message) => {
+      const chatId = reply.chat.id;
+
       if (reply.text === word.word) {
         bot.sendMessage(
-          reply.chat.id,
+          chatId,
           `🎉 Right! <strong>${word.word}</strong> is the correct answer 👏👏👏`,
           { parse_mode: "HTML" }
         );
       } else {
         bot.sendMessage(
-          reply.chat.id,
+          chatId,
           `🤭 You probably weren't the smartest person in your class, were you? The right answer is <strong>${word.word}</strong>`,
           { parse_mode: "HTML" }
         );
       }
-      sendMenu(bot, result, "Which exercise would you like to do now?");
+      sendMenu(bot, chatId, "Which exercise would you like to do now?");
     }
   )
 };

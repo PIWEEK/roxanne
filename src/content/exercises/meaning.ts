@@ -17,7 +17,7 @@ const checkResponse = (
         `💡 The meaning of <strong>${word.word}</strong> is: <em>${word.meaning}</em>`,
         { parse_mode: "HTML" }
       );
-      sendMenu(bot, result, "Which exercise would you like to do now?");
+      sendMenu(bot, reply.chat.id, "Which exercise would you like to do now?");
     }
   )
 };

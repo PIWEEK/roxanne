@@ -42,39 +42,8 @@ bot.onText(commands.win, (msg: TelegramBot.Message) => {
   );
 });
 
-// bot.onText(
-//   commands.languagetool,
-//   (msg: Message) => {
-//     var chatId = msg.chat.id;
-//     params.text = "This is sentence";
-
-//     languagetool.check(params, (err, res) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         console.log(res.matches[0]);
-//         if (res.matches) {
-//           bot.sendMessage(
-//             chatId,
-//             res.matches[0].shortMessage
-//           );
-//           bot.sendMessage(
-//             chatId,
-//             res.matches[0].message
-//           );
-//         } else {
-//           bot.sendMessage(
-//             chatId,
-//             "This sentence looks good!"
-//           );
-//         }
-//       }
-//     });
-//   }
-// );
-
 bot.onText(commands.learn, (msg: TelegramBot.Message) => {
-  sendMenu(bot, msg, "Which exercise would you like to do?");
+  sendMenu(bot, msg.chat.id, "Which exercise would you like to do?");
 });
 
 bot.on(

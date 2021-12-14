@@ -3,6 +3,7 @@ import { languagetoolParams } from "../../model/languagetool.model";
 import { Word } from "../../model/words.model";
 import { getRandomWord } from "../../utils/utils";
 import { sendMenu } from "../menu";
+import * as languagetool from "languagetool-api";
 
 let params: languagetoolParams = {
   language: "en-GB",
@@ -11,7 +12,7 @@ let params: languagetoolParams = {
   level: "default",
 };
 
-const wordLength = 10;
+const wordLength = 5;
 
 const writeSentence = (bot: TelegramBot, message: TelegramBot.Message, word: Word) => {
   bot.sendMessage(
@@ -24,6 +25,37 @@ const writeSentence = (bot: TelegramBot, message: TelegramBot.Message, word: Wor
   });
 }
 
+const languageCheck = (bot:TelegramBot, chatId: number, message: string) => {
+  params.text = message;
+  languagetool.check(params, async (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (res.matches.length) {
+        for (const match of res.matches) {
+          await bot.sendMessage(
+            chatId,
+            `🛑 ${match.shortMessage}`
+          ).then(() => {
+            bot.sendMessage(
+              chatId,
+              `👉 ${match.message}`
+            );
+          })
+        }
+        sendMenu(bot, chatId, "Which exercise would you like to do now?");
+      } else {
+        bot.sendMessage(
+          chatId,
+          "This sentence looks good!"
+        ).then(() => {
+          sendMenu(bot, chatId, "Which exercise would you like to do now?");
+        })
+      }
+    }
+  });
+};
+
 const checkResponse = (
   bot: TelegramBot,
   result: TelegramBot.Message,
@@ -33,40 +65,30 @@ const checkResponse = (
     result.chat.id,
     result.message_id,
     (reply: TelegramBot.Message) => {
-      console.log(reply);
       if (reply.text.split(" ").length < wordLength) {
         bot.sendMessage(
           reply.chat.id,
-          `⚠️ That sentence is too short. Try again`,
-          { parse_mode: "HTML" }
+          `⚠️ That sentence is too short. Try again`
         );
         writeSentence(bot, reply, word);
-      }
-      if (!reply.text.includes(word.word)) {
+      } else  if (!reply.text.includes(word.word)) {
         bot.sendMessage(
           reply.chat.id,
-          `⚠️ That sentence is too short. Try again`,
+          `⚠️ That sentence does not contain the word: <strong>${word.word}</strong>. Try again!`,
           { parse_mode: "HTML" }
         );
         writeSentence(bot, reply, word);
+      } else {
+        const chatId = reply.chat.id;
+        bot.sendMessage(
+          chatId,
+          `🧐 Aha! Give me a second to analyze this sentence...`
+        ).then(() => {
+          languageCheck(bot, chatId, reply.text)
+
+        })
+
       }
-
-
-
-    //   if (reply.text === word.word) {
-    //     bot.sendMessage(
-    //       reply.chat.id,
-    //       `🎉 Right! <strong>${word.word}</strong> is the correct answer 👏👏👏`,
-    //       { parse_mode: "HTML" }
-    //     );
-    //   } else {
-    //     bot.sendMessage(
-    //       reply.chat.id,
-    //       `🤭 You probably weren't the smartest person in your class, were you? The right answer is <strong>${word.word}</strong>`,
-    //       { parse_mode: "HTML" }
-    //     );
-    //   }
-    //   sendMenu(bot, result, "Which exercise would you like to do now?");
     }
   )
 };
@@ -81,30 +103,5 @@ const sentenceExercise = (
   }
 }
 
-// var chatId = msg.chat.id;
-//     params.text = "This is sentence";
-
-//     languagetool.check(params, (err, res) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         console.log(res.matches[0]);
-//         if (res.matches) {
-//           bot.sendMessage(
-//             chatId,
-//             res.matches[0].shortMessage
-//           );
-//           bot.sendMessage(
-//             chatId,
-//             res.matches[0].message
-//           );
-//         } else {
-//           bot.sendMessage(
-//             chatId,
-//             "This sentence looks good!"
-//           );
-//         }
-//       }
-//     });
 
 export { sentenceExercise }
