@@ -6,3 +6,5 @@ const words: Word[] = [
     meaning: 'This is an example description'
   }
 ]
+
+export { words };

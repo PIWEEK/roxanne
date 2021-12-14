@@ -1,3 +1,5 @@
+import * as TelegramBot from "node-telegram-bot-api";
+
 const learnMenu = {
   inline_keyboard: [
     [
@@ -9,12 +11,28 @@ const learnMenu = {
         text: "Guess meanings",
         callback_data: "meanings",
       },
+    ],
+    [
       {
         text: "I want to write sentences",
         callback_data: "sentences",
+      },
+      {
+        text: "I want to pronounce something",
+        callback_data: "pronounce",
       },
     ]
   ],
 }
 
-export { learnMenu }
+const sendMenu = (bot: TelegramBot, msg: TelegramBot.Message, text: string) => {
+  bot.sendMessage(
+    msg.chat.id,
+    text,
+    {
+      reply_markup: learnMenu,
+    }
+  );
+}
+
+export { sendMenu }
