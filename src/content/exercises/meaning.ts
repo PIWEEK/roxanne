@@ -19,7 +19,7 @@ const checkResponse = (
       ${botReplies.meanings.check}`,
         { parse_mode: "HTML" }
       ).then(() => {
-        sendMenu(bot, reply.chat.id, botReplies.whichExercise);
+        sendMenu('learnMenu', bot, reply.chat.id, botReplies.whichExercise);
       })
     }
   )

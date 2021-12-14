@@ -42,13 +42,13 @@ const languageCheck = (bot:TelegramBot, chatId: number, message: string) => {
             );
           })
         }
-        sendMenu(bot, chatId, botReplies.whichExercise);
+        sendMenu("learnMenu", bot, chatId, botReplies.whichExercise);
       } else {
         bot.sendMessage(
           chatId,
           botReplies.sentences.success
         ).then(() => {
-          sendMenu(bot, chatId, botReplies.whichExercise);
+          sendMenu("learnMenu", bot, chatId, botReplies.whichExercise);
         })
       }
     }

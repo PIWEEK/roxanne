@@ -2,7 +2,7 @@ const botReplies = {
   welcome: "Welcome to Roxanne bot",
   notImplemented: "Don't burden me, I haven't implemented this functionality yet!",
   whichExercise: "🙂 What do you fancy doing now?",
-  piweekWinner: "I wouldn't have bet on you at first, but with my help we have definitely won PIWEEK",
+  piweekWinner: "If you were a horse I wouldn't have bet on you, but with my help I'm pretty sure we have definitely won the PIWEEK",
   sentences: {
     analysis: "🧐 Oh, already? Give me a second to analyze this sentence...",
     success: "I don't mean to sound offensive, but this sentence is surprisingly good! 👌",
@@ -13,7 +13,8 @@ const botReplies = {
   },
   words: {
     meaning: "🤔 <strong>Question!!</strong> Which word means",
-    success: "🎉 Right! Not bad for someone like you"
+    success: "🎉 Right! Not bad for someone like you",
+    retry: "😥 Hmm, I mean, mmmm... not bad, but do you want to try it again?"
   },
   meanings: {
     question: "🤔 <strong>There we go!!</strong> What is the definition of",
