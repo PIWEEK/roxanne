@@ -61,6 +61,7 @@ bot.onText(new RegExp(`/${commands.learn.name}`), (msg: TelegramBot.Message) => 
   sendMenu("learnMenu", bot, msg.chat.id, botReplies.whichExercise);
 });
 
+
 bot.on(
   "callback_query",
   (result: TelegramBot.CallbackQuery) => {
@@ -77,6 +78,19 @@ bot.on(
 
       case 'sentences':
         sentenceExercise(bot, result);
+        break;
+
+      case "wordsYes":
+        wordsExercise(bot, result);
+        break;
+
+      case "wordsNo":
+        sendMenu(
+          "learnMenu",
+          bot,
+          result.message.chat.id,
+          botReplies.whichExercise
+        );
         break;
 
       default:

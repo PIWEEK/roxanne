@@ -9,39 +9,10 @@ const tryAgain = (
   chatId: number
 ) => {
   sendMenu(
-    "retryMenu",
+    "retryWordsMenu",
     bot,
     chatId,
     botReplies.words.retry
-  );
-  bot.on(
-    "callback_query",
-    (result: TelegramBot.CallbackQuery) => {
-      console.log('here');
-      switch (result.data) {
-        case "yes":
-          wordsExercise(bot, result);
-          break;
-
-        case "no":
-          sendMenu(
-            "learnMenu",
-            bot,
-            chatId,
-            botReplies.whichExercise
-          );
-          break;
-
-        default:
-          sendMenu(
-            "learnMenu",
-            bot,
-            chatId,
-            botReplies.whichExercise
-          );
-          break;
-      }
-    }
   );
 };
 

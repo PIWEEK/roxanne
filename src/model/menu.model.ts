@@ -1,3 +1,3 @@
-type MenuList = 'learnMenu' | 'retryMenu';
+type MenuList = 'learnMenu' | 'retryWordsMenu';
 
 export { MenuList }

@@ -29,6 +29,7 @@ const languageCheck = (bot:TelegramBot, chatId: number, message: string) => {
   languagetool.check(langParams, async (err, res) => {
     if (err) {
       console.log(err);
+      sendMenu("learnMenu", bot, chatId, botReplies.whichExercise);
     } else {
       if (res.matches.length) {
         for (const match of res.matches) {
@@ -82,9 +83,9 @@ const checkResponse = (
         bot.sendMessage(
           chatId,
           botReplies.sentences.analysis
-        ).then(() => {
-          languageCheck(bot, chatId, reply.text)
-        })
+        );
+        bot.sendChatAction(chatId, "typing")
+        languageCheck(bot, chatId, reply.text)
       }
     }
   )

@@ -14,7 +14,7 @@ const botReplies = {
   words: {
     meaning: "🤔 <strong>Question!!</strong> Which word means",
     success: "🎉 Right! Not bad for someone like you",
-    retry: "😥 Hmm, I mean, mmmm... not bad, but do you want to try it again?"
+    retry: "😥 Hmm, I mean, mmmm... you might want to try it again?"
   },
   meanings: {
     question: "🤔 <strong>There we go!!</strong> What is the definition of",

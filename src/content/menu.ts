@@ -26,28 +26,32 @@ const menu = {
       ]
     ],
   },
-  retryMenu: {
+  retryWordsMenu: {
     inline_keyboard: [
       [
         {
           text: "yes",
-          callback_data: "yes",
+          callback_data: "wordsYes",
         },
         {
           text: "no",
-          callback_data: "no",
+          callback_data: "wordsNo",
         }
       ]
     ],
   }
 }
 
-const sendMenu = (menuItem: MenuList = 'learnMenu', bot: TelegramBot, chatId: number, text: string) => {
+const sendMenu = (
+  menuId: MenuList = 'learnMenu',
+  bot: TelegramBot,
+  chatId: number,
+  text: string) => {
   bot.sendMessage(
     chatId,
     text,
     {
-      reply_markup: menu[menuItem.toString()],
+      reply_markup: menu[menuId.toString()],
     }
   );
 }
