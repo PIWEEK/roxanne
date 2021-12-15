@@ -20,8 +20,8 @@ const menu = {
           callback_data: "sentences",
         },
         {
-          text: "Improve pronounciation",
-          callback_data: "pronounce",
+          text: "Improve pronunciation",
+          callback_data: "pronunciation",
         },
       ]
     ],
@@ -36,6 +36,20 @@ const menu = {
         {
           text: "no",
           callback_data: "wordsNo",
+        }
+      ]
+    ],
+  },
+  pronunciationMenu: {
+    inline_keyboard: [
+      [
+        {
+          text: "speak",
+          callback_data: "pronunciationSpeak",
+        },
+        {
+          text: "listen",
+          callback_data: "pronunciationListen",
         }
       ]
     ],

@@ -20,6 +20,10 @@ const botReplies = {
     question: "🤔 <strong>There we go!!</strong> What is the definition of",
     check: "Come on, don't lie to me. Was it even close?"
   },
+  pronunciation: {
+    question: "🥕 This will come in handy for you. Your English sounds like a cooked carrot. What should we do?",
+    listen: "😒 Wow, got it, looks like I'll be making ALL the effort. What phrase do you want me to say?"
+  },
   tryAgain: "Try again!",
   errors: {
     smart: "🤭 You probably weren't the smartest person in your class, were you? The right answer is:"

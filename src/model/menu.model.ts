@@ -1,3 +1,3 @@
-type MenuList = 'learnMenu' | 'retryWordsMenu';
+type MenuList = 'learnMenu' | 'retryWordsMenu' | 'pronunciationMenu';
 
 export { MenuList }
