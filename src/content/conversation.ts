@@ -22,7 +22,10 @@ const botReplies = {
   },
   pronunciation: {
     question: "🥕 This will come in handy for you. Your English sounds like a cooked carrot. What should we do?",
-    listen: "😒 Wow, got it, looks like I'll be making ALL the effort. What phrase do you want me to say?"
+    listen: "😒 Wow, got it, looks like I'll be making ALL the effort. What phrase do you want me to say?",
+    sendAudio: "🤖 Enjoy my gorgeous, robotic speech",
+    speak: "😒 Yeah, happy to hear your slightly unpleasant tone of voice. Come on, drop me an audio!",
+    pay: "🤮 I mean, I understand that you've already developed all the code and whatnot, but I'm not paying Google or Amazon to listen to your empty phrases."
   },
   tryAgain: "Try again!",
   errors: {

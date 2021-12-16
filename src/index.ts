@@ -8,7 +8,7 @@ import { wordsExercise } from "./content/exercises/words";
 import { meaningsExercise } from "./content/exercises/meaning";
 import { sentenceExercise } from "./content/exercises/sentence";
 import { botReplies } from "./content/conversation";
-import { listenExercise, pronunciationExercise } from "./content/exercises/pronunciation";
+import { listenExercise, pronunciationExercise, speechExercise } from "./content/exercises/pronunciation";
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot: TelegramBot = new TelegramBot(token, {
@@ -87,6 +87,10 @@ bot.on(
 
       case 'pronunciationListen':
         listenExercise(bot, result);
+        break;
+
+      case 'pronunciationSpeak':
+        speechExercise(bot, result);
         break;
 
       case "wordsYes":
