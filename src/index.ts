@@ -12,7 +12,7 @@ import { sentenceExercise } from "./content/exercises/sentence";
 import { botReplies } from "./content/conversation";
 import { listenExercise, pronunciationExercise, speechExercise } from "./content/exercises/pronunciation";
 import { wordsList } from "./database/words";
-import { addWord } from "./content/word-store";
+import { addWord, removeWord } from "./content/word-store";
 
 
 // Create a bot that uses 'polling' to fetch new updates
@@ -28,6 +28,8 @@ const initBot = () => {
 const setupDB = () => {
 
   const allRecords = dbWords.chain().simplesort("word").data();
+
+  console.log(allRecords);
 
   if (allRecords.length === 0) {
     dbWords.insert(wordsList);
@@ -49,10 +51,10 @@ const setupCommands = () => {
         command: commands.addWord.name,
         description: commands.addWord.description,
       },
-      // {
-      //   command: commands.removeWord.name,
-      //   description: commands.removeWord.description,
-      // },
+      {
+        command: commands.removeWord.name,
+        description: commands.removeWord.description,
+      },
     ],
   );
 }
@@ -90,6 +92,10 @@ bot.onText(new RegExp(`/${commands.learn.name}`), (msg: TelegramBot.Message) => 
 
 bot.onText(new RegExp(`/${commands.addWord.name}`), (msg: TelegramBot.Message) => {
   addWord(bot, msg);
+});
+
+bot.onText(new RegExp(`/${commands.removeWord.name}`), (msg: TelegramBot.Message) => {
+  removeWord(bot, msg);
 });
 
 // CALLBACK QUERIES

@@ -29,10 +29,18 @@ const botReplies = {
   },
   addWord: {
     question: {
-      word: "What word do you want to store, ordinary human?",
-      meaning: "Human language is so inefficient... How would you describe this word?",
+      word: "💾 What word do you want to store, ordinary human?",
+      meaning: "😑 Human language is so inefficient... How would you describe this word?",
     },
-    success: "word saved. Your dysfunctional database AKA brain won't have to worry any more."
+    success: "word saved. Your dysfunctional database AKA brain won't have to worry any more.",
+    error: "was already on the list. Your dysfunctional brain forgot it."
+  },
+  removeWord: {
+    question: {
+      word: "💾 What word do you want to remove, ordinary human?",
+    },
+    success: "'Words and feathers the wind carries away.'",
+    error: "This word was not on the list. Please don't try to erase every word.",
   },
   tryAgain: "Try again!",
   errors: {
