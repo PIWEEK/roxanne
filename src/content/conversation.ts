@@ -27,6 +27,13 @@ const botReplies = {
     speak: "😒 Yeah, happy to hear your slightly unpleasant tone of voice. Come on, drop me an audio!",
     pay: "🤮 I mean, I understand that you've already developed all the code and whatnot, but I'm not paying Google or Amazon to listen to your empty phrases."
   },
+  addWord: {
+    question: {
+      word: "What word do you want to store, ordinary human?",
+      meaning: "Human language is so inefficient... How would you describe this word?",
+    },
+    success: "word saved. Your dysfunctional database AKA brain won't have to worry any more."
+  },
   tryAgain: "Try again!",
   errors: {
     smart: "🤭 You probably weren't the smartest person in your class, were you? The right answer is:"

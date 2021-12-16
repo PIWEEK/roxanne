@@ -12,6 +12,7 @@ import { sentenceExercise } from "./content/exercises/sentence";
 import { botReplies } from "./content/conversation";
 import { listenExercise, pronunciationExercise, speechExercise } from "./content/exercises/pronunciation";
 import { wordsList } from "./database/words";
+import { addWord } from "./content/word-store";
 
 
 // Create a bot that uses 'polling' to fetch new updates
@@ -31,7 +32,6 @@ const setupDB = () => {
   if (allRecords.length === 0) {
     dbWords.insert(wordsList);
   }
-
 }
 
 const setupCommands = () => {
@@ -45,6 +45,14 @@ const setupCommands = () => {
         command: commands.win.name,
         description: commands.win.description,
       },
+      {
+        command: commands.addWord.name,
+        description: commands.addWord.description,
+      },
+      // {
+      //   command: commands.removeWord.name,
+      //   description: commands.removeWord.description,
+      // },
     ],
   );
 }
@@ -52,6 +60,8 @@ const setupCommands = () => {
 bot.on("polling_error", (error: any) => {
   console.log(error);
 });
+
+// COMMANDS
 
 bot.onText(new RegExp(`/${commands.start.name}`), (msg: TelegramBot.Message) => {
   var chatId = msg.chat.id;
@@ -77,6 +87,12 @@ bot.onText(new RegExp(`/${commands.learn.name}`), (msg: TelegramBot.Message) => 
   sendMenu("learnMenu", bot, msg.chat.id, botReplies.whichExercise);
 });
 
+
+bot.onText(new RegExp(`/${commands.addWord.name}`), (msg: TelegramBot.Message) => {
+  addWord(bot, msg);
+});
+
+// CALLBACK QUERIES
 
 bot.on(
   "callback_query",

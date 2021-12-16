@@ -27,6 +27,7 @@
   "devDependencies": {
     "@parcel/packager-ts": "^2.0.1",
     "@parcel/transformer-typescript-types": "^2.0.1",
+    "@types/lokijs": "^1.5.7",
     "@types/node": "^16.11.13",
     "@types/node-telegram-bot-api": "^0.53.2",
     "nodemon": "^2.0.15",
