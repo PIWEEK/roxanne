@@ -53,7 +53,7 @@ const pronounce = (
   reply: TelegramBot.Message
 ) => {
   const url = googleTTS.getAudioUrl(
-    botReplies.pronunciation.sendAudio,
+    reply.text,
     {
       lang: "en",
       slow: false,
@@ -62,7 +62,7 @@ const pronounce = (
   );
 
   const options: TelegramBot.SendAudioOptions = {
-    caption: reply.text,
+    caption: botReplies.pronunciation.sendAudio,
   };
 
   bot

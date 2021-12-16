@@ -1,5 +1,5 @@
 import * as TelegramBot from "node-telegram-bot-api";
-import { dbWords } from "../../config/config";
+import { db } from "../../config/config";
 import { Word } from "../model/words.model";
 import { botReplies } from "./conversation";
 import { sendMenu } from "./menu";
@@ -11,24 +11,32 @@ let newWord: Word = {
 
 const storeWord = (bot: TelegramBot, reply: TelegramBot.Message) => {
   newWord.meaning = reply.text;
-  dbWords.insert(newWord);
+  const wordsDB = db.getCollection('words');
+  wordsDB.insert(newWord);
+  db.saveDatabase((err) => {
+    if(err) {
+      console.error(err);
+    }
+  });
   bot
   .sendMessage(
     reply.chat.id,
-    `<strong>${reply.text}<strong> ${botReplies.addWord.success}`,
+    `<strong>${newWord.word}</strong> ${botReplies.addWord.success}`,
     { parse_mode: "HTML"}
-  )
-  sendMenu(
-    "learnMenu",
-    bot,
-    reply.chat.id,
-    botReplies.whichExercise
-  )
+  ).then(() => {
+    sendMenu(
+      "learnMenu",
+      bot,
+      reply.chat.id,
+      botReplies.whichExercise
+    )
+    newWord = {
+      word: '',
+      meaning: ''
+    }
 
-  newWord = {
-    word: '',
-    meaning: ''
-  }
+  })
+
 }
 
 const addWordName = (bot: TelegramBot, reply: TelegramBot.Message) => {
@@ -61,15 +69,16 @@ const addWord = (
         result.chat.id,
         result.message_id,
         (reply: TelegramBot.Message) => {
-          const result = dbWords.find({word: { '$eq' : reply.text }});
+          const wordsDB = db.getCollection('words');
+          const result = wordsDB.find({word: { '$eq' : reply.text }});
           if(!result.length) {
             addWordName(bot, reply);
           } else {
             bot
             .sendMessage(
               reply.chat.id,
-              `<strong>${reply.text}<strong> ${botReplies.addWord.error}`,
-              { parse_mode: "HTML"}
+              `<strong>${reply.text}</strong> ${botReplies.addWord.error}`,
+              { parse_mode: "HTML" }
             )
           }
         });
@@ -90,22 +99,44 @@ const removeWord = (
         result.chat.id,
         result.message_id,
         (reply: TelegramBot.Message) => {
-          const wordToRemove = dbWords.findOne({ word: reply.text });
-          dbWords.remove(wordToRemove.$loki);
+          const wordsDB = db.getCollection('words');
+          const wordToRemove = wordsDB.findOne({ word: reply.text });
+
+          wordsDB.remove(wordToRemove.$loki);
+          db.saveDatabase((err) => {
+            if(err) {
+              console.error(err);
+            }
+          });
+
           bot
             .sendMessage(
               reply.chat.id,
-              `<strong>${reply.text}<strong> ${botReplies.removeWord.success}`,
-              { parse_mode: "HTML"}
-            )
-          sendMenu(
-            "learnMenu",
-            bot,
-            reply.chat.id,
-            botReplies.whichExercise
-          )
+              botReplies.removeWord.success,
+            ).then(() => {
+              sendMenu(
+                "learnMenu",
+                bot,
+                reply.chat.id,
+                botReplies.whichExercise
+              )
+            })
         });
     });
 };
 
-export { addWord, removeWord };
+const listWords = (
+  bot: TelegramBot,
+  message: TelegramBot.Message,
+) => {
+  const wordsDB = db.getCollection('words');
+  const wordsList = wordsDB.chain().data();
+  const wordsListMsg = wordsList.map((word) => word.word);
+  bot
+    .sendMessage(
+      message.chat.id,
+      `${wordsListMsg.join(', ')}`
+    )
+}
+
+export { addWord, removeWord, listWords };

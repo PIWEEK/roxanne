@@ -1,5 +1,6 @@
-import { dbWords } from "../../config/config";
-import { Word } from "../model/words.model";
+import { db } from "../../config/config";
+
+const dbWords = db.getCollection("words");
 
 // Returns a randomWord from the words array
 const getRandomWord = () => {

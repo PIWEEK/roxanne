@@ -1,5 +1,5 @@
 const botReplies = {
-  welcome: "Welcome to Roxanne bot",
+  welcome: "You talking to me?",
   notImplemented: "Don't burden me, I haven't implemented this functionality yet!",
   whichExercise: "🙂 What do you fancy doing now?",
   piweekWinner: "If you were a horse I wouldn't have bet on you, but with my help I'm pretty sure we have definitely won the PIWEEK",

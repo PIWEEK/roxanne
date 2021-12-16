@@ -27,7 +27,7 @@ const checkResponse = (
     (reply: TelegramBot.Message) => {
       const chatId = reply.chat.id;
 
-      if (reply.text === word.word) {
+      if (reply.text.toLocaleLowerCase() === word.word.toLocaleLowerCase()) {
         bot
           .sendMessage(
             chatId,
