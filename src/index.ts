@@ -1,7 +1,9 @@
 import * as TelegramBot from "node-telegram-bot-api";
+
 import {
   token,
   commands,
+  dbWords,
 } from "../config/config";
 import { sendMenu } from "./content/menu";
 import { wordsExercise } from "./content/exercises/words";
@@ -9,6 +11,8 @@ import { meaningsExercise } from "./content/exercises/meaning";
 import { sentenceExercise } from "./content/exercises/sentence";
 import { botReplies } from "./content/conversation";
 import { listenExercise, pronunciationExercise, speechExercise } from "./content/exercises/pronunciation";
+import { wordsList } from "./database/words";
+
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot: TelegramBot = new TelegramBot(token, {
@@ -16,10 +20,21 @@ const bot: TelegramBot = new TelegramBot(token, {
 });
 
 const initBot = () => {
-  setupCommands()
+  setupCommands();
+  setupDB();
 }
 
-function setupCommands() {
+const setupDB = () => {
+
+  const allRecords = dbWords.chain().simplesort("word").data();
+
+  if (allRecords.length === 0) {
+    dbWords.insert(wordsList);
+  }
+
+}
+
+const setupCommands = () => {
   bot.setMyCommands(
     [
       {

@@ -1,10 +1,10 @@
 import { Word } from "../model/words.model";
 
-const words: Word[] = [
+const wordsList: Word[] = [
   {
     word: 'example',
     meaning: 'This is an example description'
   }
-]
+];
 
-export { words };
+export { wordsList };

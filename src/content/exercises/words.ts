@@ -60,8 +60,7 @@ const wordsExercise = (
   result: TelegramBot.CallbackQuery,
   previousWord?: Word
 ) => {
-  const word: Word =
-    previousWord || getRandomWord();
+  const word = previousWord || getRandomWord();
   bot
     .sendMessage(
       result.message.chat.id,
