@@ -60,14 +60,17 @@ const sendMenu = (
   menuId: MenuList = 'learnMenu',
   bot: TelegramBot,
   chatId: number,
-  text: string) => {
-  bot.sendMessage(
-    chatId,
-    text,
-    {
-      reply_markup: menu[menuId.toString()],
-    }
-  );
+  text: string,
+  timeout: number = 1000) => {
+    setTimeout(() => {
+      bot.sendMessage(
+        chatId,
+        text,
+        {
+          reply_markup: menu[menuId.toString()],
+        }
+      );
+    }, timeout);
 }
 
 export { sendMenu }

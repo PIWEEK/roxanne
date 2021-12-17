@@ -85,7 +85,7 @@ bot.onText(new RegExp(`/${commands.win.name}`), (msg: TelegramBot.Message) => {
 });
 
 bot.onText(new RegExp(`/${commands.learn.name}`), (msg: TelegramBot.Message) => {
-  sendMenu("learnMenu", bot, msg.chat.id, botReplies.whichExercise);
+  sendMenu("learnMenu", bot, msg.chat.id, botReplies.whichExercise, 100);
 });
 
 

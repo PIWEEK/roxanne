@@ -1,11 +1,10 @@
 import { db } from "../../config/config";
 
-const dbWords = db.getCollection("words");
-
 // Returns a randomWord from the words array
 const getRandomWord = () => {
-  const words = dbWords.chain().data();
-  return words[Math.floor(Math.random() * words.length)]
+  const wordsDB = db.getCollection('words');
+  const wordsList = wordsDB.chain().data();
+  return wordsList[Math.floor(Math.random() * wordsList.length)]
 }
 
 export { getRandomWord };
