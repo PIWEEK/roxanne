@@ -5,16 +5,71 @@
 // the token and the name of the command you have assigned to it.
 // --------------------------------------------------------------
 
-// @yourname_bot
-// https://t.me/yourname_bot
+// @roxanne_en_bot
+// https://t.me/roxanne_en_bot
 
-// const token = 'Your token here!';
+// import { LanguagetoolParams } from "../src/model/languagetool.model";
+// import * as loki from "lokijs";
+// import { wordsList } from "../src/database/words";
 
-// export const commands = {
-//   start: /^\/start/,
-//   learn: /^\/directory/,
-//   win: /^\/didiwin/,
-//   languagetool: /^\/languagetool/,
+// const token = 'YOUR TOKEN HERE';
+
+// const commands = {
+//   start: {
+//     name: "start",
+//     description: "Wake up Roxanne"
+//   },
+//   learn: {
+//     name: "learn",
+//     description: "Start exercises."
+//   },
+//   win: {
+//     name: "didiwin",
+//     description: "Who has won the piweek?"
+//   },
+//   addWord: {
+//     name: "add",
+//     description: "Add a word to your learning list"
+//   },
+//   removeWord: {
+//     name: "remove",
+//     description: "Remove a word from your learning list"
+//   },
+//   listWords: {
+//     name: "list",
+//     description: "List words from your learning list"
+//   },
 // };
 
-// export { token, commands, etc };
+// const languageCode: string = "en-GB";
+
+// let languagetoolParams: LanguagetoolParams = {
+//   language: languageCode,
+//   text: "",
+//   motherTongue: "YOUR MOTHER TONGHE",
+//   level: "default",
+// };
+
+// const db = new loki('DATABASE FILE URL', {
+//   autoload: true,
+//   autosave: true,
+//   autosaveInterval: 4000,
+//   autoloadCallback: () => {
+//     if(db.getCollection("words") === null ) {
+//       const wordsDB = db.addCollection("words", {autoupdate: true});
+//       const allRecords = wordsDB.chain().data();
+
+//       if (allRecords.length === 0) {
+//         wordsDB.insert(wordsList);
+//       }
+//     }
+//   }
+// });
+
+// export {
+//   token,
+//   commands,
+//   languageCode,
+//   languagetoolParams,
+//   db
+// };

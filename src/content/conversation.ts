@@ -14,6 +14,7 @@ const botReplies = {
   words: {
     meaning: "🤔 <strong>Question!!</strong> Which word means",
     success: "🎉 Right! Not bad for someone like you",
+    error: "🤭 You probably weren't the smartest person in your class, were you?",
     retry: "😥 Hmm, I mean, mmmm... you might want to try it again?"
   },
   meanings: {
@@ -43,9 +44,6 @@ const botReplies = {
     error: "This word was not on the list. Please don't try to erase every word.",
   },
   tryAgain: "Try again!",
-  errors: {
-    smart: "🤭 You probably weren't the smartest person in your class, were you? The right answer is:"
-  }
 }
 
 const menuTexts = {

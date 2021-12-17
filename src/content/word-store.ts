@@ -131,11 +131,17 @@ const listWords = (
 ) => {
   const wordsDB = db.getCollection('words');
   const wordsList = wordsDB.chain().data();
-  const wordsListMsg = wordsList.map((word) => word.word);
+  const wordsListMsg = wordsList.map((definition: Word) => {
+    console.log(definition.word, definition.meaning);
+    return `
+    <strong>${definition.word}</strong> ${definition.meaning}\n`
+  });
   bot
     .sendMessage(
       message.chat.id,
-      `${wordsListMsg.join(', ')}`
+      `List of words:
+      ${wordsListMsg.join(" ")}`,
+      {parse_mode: 'HTML'}
     )
 }
 
