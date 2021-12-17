@@ -12,7 +12,8 @@
     "clean": "rimraf dist .parcel-cache",
     "parcel:serve": "parcel watch",
     "parcel:build": "parcel build",
-    "serve": "nodemon dist/index.js"
+    "serve": "nodemon dist/index.js",
+    "prod": "npm-run-all build serve"
   },
   "keywords": [],
   "license": "ISC",
