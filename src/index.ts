@@ -64,6 +64,13 @@ bot.onText(new RegExp(`/${commands.start.name}`), (msg: TelegramBot.Message) => 
     chatId,
     `${botReplies.welcome}`
   );
+
+  setTimeout(() => {
+    bot.sendMessage(
+      chatId,
+      `${botReplies.welcome_error}`
+    );
+  }, 1500);
 });
 
 bot.onText(new RegExp(`/${commands.win.name}`), (msg: TelegramBot.Message) => {

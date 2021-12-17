@@ -1,5 +1,6 @@
 const botReplies = {
-  welcome: "You talking to me?",
+  welcome: "Hey sexy mama. Wanna kill all humans?",
+  welcome_error: "Oh, sorry, wrong chat",
   notImplemented: "Don't burden me, I haven't implemented this functionality yet!",
   whichExercise: "🙂 What do you fancy doing now?",
   piweekWinner: "If you were a horse I wouldn't have bet on you, but with my help I'm pretty sure we have definitely won the PIWEEK",
@@ -14,7 +15,7 @@ const botReplies = {
   words: {
     meaning: "🤔 <strong>Question!!</strong> Which word means",
     success: "🎉 Right! Not bad for someone like you",
-    error: "🤭 You probably weren't the smartest person in your class, were you?",
+    error: "🤭 Wrong! You know what cheers me up? Other people’s ignorance.",
     retry: "😥 Hmm, I mean, mmmm... you might want to try it again?"
   },
   meanings: {
