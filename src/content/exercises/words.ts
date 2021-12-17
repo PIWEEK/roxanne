@@ -46,7 +46,7 @@ const checkResponse = (
         bot
           .sendMessage(
             chatId,
-            `${botReplies.errors.smart} <strong>${word.word}</strong>`,
+            botReplies.words.error,
             { parse_mode: "HTML" }
           )
           .then(() => tryAgain(bot, chatId));
