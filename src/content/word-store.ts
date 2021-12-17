@@ -1,5 +1,5 @@
 import * as TelegramBot from "node-telegram-bot-api";
-import { db } from "../../config/config";
+import { wordCollection } from "../../config/config";
 import { Word } from "../model/words.model";
 import { botReplies } from "./conversation";
 import { sendMenu } from "./menu";
@@ -11,13 +11,7 @@ let newWord: Word = {
 
 const storeWord = (bot: TelegramBot, reply: TelegramBot.Message) => {
   newWord.meaning = reply.text;
-  const wordsDB = db.getCollection('words');
-  wordsDB.insert(newWord);
-  db.saveDatabase((err) => {
-    if(err) {
-      console.error(err);
-    }
-  });
+  wordCollection.insert(newWord);
   bot
   .sendMessage(
     reply.chat.id,
@@ -69,8 +63,7 @@ const addWord = (
         result.chat.id,
         result.message_id,
         (reply: TelegramBot.Message) => {
-          const wordsDB = db.getCollection('words');
-          const result = wordsDB.find({word: { '$eq' : reply.text }});
+          const result = wordCollection.find({word: { '$eq' : reply.text }});
           if(!result.length) {
             addWordName(bot, reply);
           } else {
@@ -99,16 +92,8 @@ const removeWord = (
         result.chat.id,
         result.message_id,
         (reply: TelegramBot.Message) => {
-          const wordsDB = db.getCollection('words');
-          const wordToRemove = wordsDB.findOne({ word: reply.text });
-
-          wordsDB.remove(wordToRemove.$loki);
-          db.saveDatabase((err) => {
-            if(err) {
-              console.error(err);
-            }
-          });
-
+          const wordToRemove = wordCollection.findOne({ word: reply.text });
+          wordCollection.remove(wordToRemove.$loki);
           bot
             .sendMessage(
               reply.chat.id,
@@ -129,10 +114,8 @@ const listWords = (
   bot: TelegramBot,
   message: TelegramBot.Message,
 ) => {
-  const wordsDB = db.getCollection('words');
-  const wordsList = wordsDB.chain().data();
+  const wordsList = wordCollection.chain().data();
   const wordsListMsg = wordsList.map((definition: Word) => {
-    console.log(definition.word, definition.meaning);
     return `
     <strong>${definition.word}</strong> ${definition.meaning}\n`
   });

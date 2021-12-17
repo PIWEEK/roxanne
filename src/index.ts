@@ -3,7 +3,6 @@ import * as TelegramBot from "node-telegram-bot-api";
 import {
   token,
   commands,
-  db,
 } from "../config/config";
 import { sendMenu } from "./content/menu";
 import { wordsExercise } from "./content/exercises/words";
